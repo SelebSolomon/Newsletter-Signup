@@ -2,6 +2,8 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const port = 3000
 const https = require('https')
+const api_key = process.env.API_KEY
+const list_id = process.env.LIST_ID
 
 const app = express()
 
@@ -36,10 +38,10 @@ app.post("/", (req, res) => {
     const jsonData = JSON.stringify(data)
 
 
-    const url = "https://us8.api.mailchimp.com/3.0/lists/b0a4e9f2d" 
+    const url = `https://us8.api.mailchimp.com/3.0/lists/${list_id}` 
     const option = {
         method: 'POST',
-        auth: "solo:2bf58bda3b72eae51f23015b2d73bf59-us8"
+        auth:  api_key
     }
 
   const request =  https.request(url, option, (response) => {
