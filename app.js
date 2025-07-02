@@ -1,10 +1,12 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const port = 3000
+const dotenv = require('dotenv')
+
 const https = require('https')
 const api_key = process.env.API_KEY
 const list_id = process.env.LIST_ID
 
+dotenv.config()
 const app = express()
 
 app.use(express.static("public"))
@@ -38,10 +40,10 @@ app.post("/", (req, res) => {
     const jsonData = JSON.stringify(data)
 
 
-    const url = `https://us8.api.mailchimp.com/3.0/lists/${list_id}` 
+    const url = `https://${LAST_KEY}.api.mailchimp.com/3.0/lists/${list_id}` 
     const option = {
         method: 'POST',
-        auth:  api_key
+        auth:  `${api_key}`
     }
 
   const request =  https.request(url, option, (response) => {
@@ -68,8 +70,8 @@ app.post('/failure', (req, res) => {
 })
 
 
-app.listen(port, ()=> {
-    console.log(`Server is running on port ${port}`)
+app.listen(process.env.PORT, ()=> {
+    console.log(`Server is running on port ${process.env.PORT}`)
 })
 
 
