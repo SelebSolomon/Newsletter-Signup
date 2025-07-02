@@ -1,16 +1,20 @@
+const dotenv = require('dotenv')
+dotenv.config()
+
+
 const express = require('express')
 const bodyParser = require('body-parser')
-const dotenv = require('dotenv')
-
 const https = require('https')
+
+
 const api_key = process.env.API_KEY
 const list_id = process.env.LIST_ID
 
-dotenv.config()
 const app = express()
 
 app.use(express.static("public"))
 app.use(bodyParser.urlencoded({extended: true}))
+
 
 app.get("/", (req, res)=> {
     res.sendFile(__dirname + "/signup.html")
@@ -40,10 +44,10 @@ app.post("/", (req, res) => {
     const jsonData = JSON.stringify(data)
 
 
-    const url = `https://${LAST_KEY}.api.mailchimp.com/3.0/lists/${list_id}` 
+    const url = `https://us8.api.mailchimp.com/3.0/lists/${list_id}` 
     const option = {
         method: 'POST',
-        auth:  `${api_key}`
+        auth:  `solomon1:${api_key}`
     }
 
   const request =  https.request(url, option, (response) => {
@@ -79,3 +83,6 @@ app.listen(process.env.PORT, ()=> {
 // 2bf58bda3b72eae51f23015b2d73bf59-us8 
 // list id 
 // b0a4e9f2d3 
+
+// second key 
+// 3fd93cda467936c800ef6cac7ce13d58-us8
